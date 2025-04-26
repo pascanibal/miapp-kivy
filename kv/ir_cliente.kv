@@ -1,0 +1,95 @@
+#:import MDTopAppBar kivymd.uix.toolbar.toolbar.MDTopAppBar
+#:import MDRaisedButton kivymd.uix.button.MDRaisedButton
+#:import MDLabel kivymd.uix.label.MDLabel
+#:import MDTextField kivymd.uix.textfield.MDTextField
+#:import Spinner kivy.uix.spinner.Spinner
+#:import ScrollView kivy.uix.scrollview.ScrollView
+#:import BoxLayout kivy.uix.boxlayout.BoxLayout
+#:import SignatureWidget screens.ir_cliente_screen.SignatureWidget
+#:import dp kivy.metrics.dp
+
+<IrClienteScreen>:
+    name: 'ir_cliente'
+    # Ligamos la propiedad agenda_spinner declarada en la clase Python
+    agenda_spinner: agenda_spinner
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        MDTopAppBar:
+            title: 'Registrar Visita'
+            left_action_items: [['arrow-left', lambda x: setattr(app.root, 'current', 'menu')]]
+
+        ScrollView:
+            MDBoxLayout:
+                orientation: 'vertical'
+                padding: dp(10)
+                spacing: dp(10)
+                size_hint_y: None
+                height: self.minimum_height
+
+                MDLabel:
+                    text: 'Seleccione Agenda:'
+                Spinner:
+                    id: agenda_spinner
+                    text: 'Seleccione'
+                    values: []
+                    size_hint_x: None
+                    width: dp(250)
+
+                MDTextField:
+                    id: contacto_field
+                    hint_text: 'Nombre del Contacto'
+                MDTextField:
+                    id: cargo_field
+                    hint_text: 'Cargo'
+                MDTextField:
+                    id: correo_field
+                    hint_text: 'Correo'
+
+                MDTextField:
+                    id: descripcion_field
+                    hint_text: 'Descripción de la Actividad'
+                    multiline: True
+                    size_hint_y: None
+                    height: dp(100)
+                MDTextField:
+                    id: compromisos_cliente_field
+                    hint_text: 'Compromisos del Cliente'
+                    multiline: True
+                    size_hint_y: None
+                    height: dp(100)
+                MDTextField:
+                    id: compromisos_proveedor_field
+                    hint_text: 'Compromisos de ARL/Proveedor'
+                    multiline: True
+                    size_hint_y: None
+                    height: dp(100)
+
+                MDLabel:
+                    text: 'Firma (dibuje abajo):'
+
+                # Contenedor con fondo y borde para delimitar el área de firma
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(200)
+                    canvas.before:
+                        Color:
+                            rgba: .95, .95, .95, 1
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                        Color:
+                            rgba: 0, 0, 0, 1
+                        Line:
+                            rectangle: (self.x, self.y, self.width, self.height)
+                            width: 1
+
+                    SignatureWidget:
+                        id: signature
+                        size_hint: 1, 1
+
+                MDRaisedButton:
+                    text: 'Registrar Visita'
+                    pos_hint: {'center_x': 0.5}
+                    on_release: root.register_visit()

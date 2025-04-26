@@ -1,0 +1,33 @@
+#:import dp kivy.metrics.dp
+
+<AgendeContent@MDBoxLayout>:
+    orientation: "vertical"
+    spacing: dp(10)
+    padding: dp(20)
+    # Quitamos 'adaptive_height' y en su lugar controlamos manualmente la altura
+    size_hint_y: None
+    height: self.minimum_height
+
+    MDRaisedButton:
+        text: "Fecha: " + root.selected_date
+        on_release: app.show_date_picker(root)
+
+    MDRaisedButton:
+        text: "Hora Inicio: " + root.start_time
+        on_release: app.show_time_picker(root, "start")
+
+    MDRaisedButton:
+        text: "Hora Fin: " + root.end_time
+        on_release: app.show_time_picker(root, "end")
+
+    MDTextField:
+        id: direccion_field
+        hint_text: "Dirección"
+
+    MDTextField:
+        id: ciudad_field
+        hint_text: "Ciudad"
+
+    MDTextField:
+        id: telefono_field
+        hint_text: "Teléfono de contacto"

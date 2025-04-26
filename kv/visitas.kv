@@ -1,0 +1,25 @@
+#:import dp kivy.metrics.dp
+
+<VisitasScreen>:
+    name: "visitas"
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(10)
+        spacing: dp(10)
+
+        # Cabecera con botón regresar
+        BoxLayout:
+            size_hint_y: None
+            height: dp(56)
+            MDIconButton:
+                icon: "arrow-left"
+                on_release: setattr(app.root, "current", "menu")
+            MDLabel:
+                text: "Visitas de Hoy"
+                font_style: "H5"
+                valign: "middle"
+
+        # Aquí insertaremos la tabla
+        BoxLayout:
+            id: table_box_visitas
+            size_hint: 1, 1

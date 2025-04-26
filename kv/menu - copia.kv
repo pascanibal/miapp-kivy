@@ -1,0 +1,134 @@
+#:import MDRaisedButton kivymd.uix.button.MDRaisedButton
+#:import MDLabel kivymd.uix.label.MDLabel
+#:import MDTextField kivymd.uix.textfield.MDTextField
+#:import dp kivy.metrics.dp
+#:import Image kivy.uix.image.Image
+
+<MySeparator@Widget>:
+    size_hint_y: None
+    height: dp(1)
+    canvas:
+        Color:
+            rgba: 0.7, 0.7, 0.7, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<MenuScreen>:
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(20)
+        padding: dp(20)
+
+        # — Logo + Título —
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: dp(56)
+            spacing: dp(10)
+
+            Image:
+                source: "logo.png"
+                size_hint: None, None
+                size: dp(48), dp(48)
+
+            MDLabel:
+                text: "Menú Principal"
+                font_style: "H5"
+                valign: "middle"
+                halign: "left"
+
+        MySeparator:
+
+        # Primera fila: Buscador y Cambio de Contraseña
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: dp(10)
+            size_hint_y: None
+            height: dp(50)
+
+            MDTextField:
+                id: search_field
+                hint_text: "Buscar..."
+                mode: "rectangle"
+                size_hint_x: 0.6
+                font_size: "16sp"
+                pos_hint: {"center_y": 0.5}
+
+            MDRaisedButton:
+                text: "Cambio de Contraseña"
+                size_hint_x: 0.4
+                md_bg_color: app.theme_cls.primary_color
+                text_color: 1, 1, 1, 1
+                on_release: app.change_password()
+
+        # Segunda fila: Visitas de Hoy, Registrar Visita y Visita Presencial
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: dp(10)
+            size_hint_y: None
+            height: dp(50)
+
+            MDRaisedButton:
+                text: "Visitas de Hoy"
+                size_hint_x: 0.33
+                md_bg_color: app.theme_cls.accent_color
+                text_color: 1, 1, 1, 1
+                on_release: app.show_todays_visits()
+
+            MDRaisedButton:
+                text: "Registrar Visita"
+                size_hint_x: 0.33
+                md_bg_color: app.theme_cls.accent_color
+                text_color: 1, 1, 1, 1
+                on_release: app.root.current = "ir_cliente"
+
+            MDRaisedButton:
+                text: "Visita Presencial"
+                size_hint_x: 0.34
+                md_bg_color: app.theme_cls.accent_color
+                text_color: 1, 1, 1, 1
+                on_release: app.root.current = "presencial"
+
+        MySeparator:
+
+        # Botones inferiores
+        MDRaisedButton:
+            text: "Sincronizar Actividades"
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            size_hint_y: None
+            height: dp(50)
+            on_release: app.sync_activities()
+
+        MDRaisedButton:
+            text: "Gestión de Actividades"
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            size_hint_y: None
+            height: dp(50)
+            on_release: root.manager.current = "gestion"
+
+        MDRaisedButton:
+            text: "Agendar"
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            size_hint_y: None
+            height: dp(50)
+            on_release: app.root.current = "agendar"
+
+        MDRaisedButton:
+            text: "Histórico de Visitas"
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            size_hint_y: None
+            height: dp(50)
+            on_release: app.root.current = "historico_visitas"
+
+        MDRaisedButton:
+            text: "Enviar Datos al Servidor"
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            size_hint_y: None
+            height: dp(50)
+            on_release: app.send_data_to_server()

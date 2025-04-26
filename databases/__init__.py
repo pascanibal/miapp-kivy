@@ -1,0 +1,2 @@
+from .database_local import create_connection, create_tables, insert_or_update_activity
+from .database_remote import get_remote_connection, fetch_remote_activities

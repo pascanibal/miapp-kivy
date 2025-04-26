@@ -1,0 +1,63 @@
+#:import dp kivy.metrics.dp
+
+<GestionScreen>:
+    name: "gestion"
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(10)
+        spacing: dp(10)
+
+        # Cabecera con botón regresar y título
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: dp(56)
+            MDIconButton:
+                icon: 'arrow-left'
+                on_release: setattr(app.root, 'current', 'menu')
+            MDLabel:
+                text: 'Gestión de Actividades'
+                font_style: 'H5'
+                valign: 'middle'
+
+        MDTextField:
+            id: filter_field
+            hint_text: "Filtrar..."
+            size_hint_x: 0.5
+            pos_hint: {"center_x": .5}
+            on_text: root.apply_filter(self.text)
+
+        MDSeparator:
+            height: dp(1)
+
+        BoxLayout:
+            id: table_box
+            size_hint: 1, 1
+
+<ActividadRow>:
+    orientation: "horizontal"
+    size_hint_y: None
+    height: dp(40)
+    spacing: dp(10)
+    canvas.before:
+        Color:
+            rgba: (0.8, 1, 0.8, 1) if root.agenda_exists else (1, 1, 1, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDLabel:
+        text: root.fecha
+        size_hint_x: 0.2
+    MDLabel:
+        text: root.empresa
+        size_hint_x: 0.3
+    MDLabel:
+        text: root.tarea
+        size_hint_x: 0.2
+    MDLabel:
+        text: root.centro
+        size_hint_x: 0.15
+    MDLabel:
+        text: root.estado_txt
+        size_hint_x: 0.15

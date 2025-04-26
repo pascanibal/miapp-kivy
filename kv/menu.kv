@@ -1,0 +1,169 @@
+#:import MDRaisedButton kivymd.uix.button.MDRaisedButton
+#:import MDFillRoundFlatIconButton kivymd.uix.button.MDFillRoundFlatIconButton
+#:import MDLabel kivymd.uix.label.MDLabel
+#:import MDTextField kivymd.uix.textfield.MDTextField
+#:import MDTopAppBar kivymd.uix.toolbar.MDTopAppBar
+#:import Image kivy.uix.image.Image
+#:import dp kivy.metrics.dp
+
+<MySeparator@Widget>:
+    size_hint_y: None
+    height: dp(1)
+    canvas:
+        Color:
+            rgba: 0.7, 0.7, 0.7, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<MenuScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        spacing: dp(20)
+        padding: dp(20)
+
+        # — Logo + Título —
+        MDBoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: dp(56)
+            spacing: dp(10)
+
+            Image:
+                source: 'logo.png'
+                size_hint: None, None
+                size: dp(48), dp(48)
+
+            MDLabel:
+                text: 'Menú Principal'
+                font_style: 'H5'
+                valign: 'middle'
+                halign: 'left'
+
+        MySeparator
+
+        # Buscador y cambio de contraseña
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: dp(10)
+            size_hint_y: None
+            height: dp(50)
+
+            MDTextField:
+                id: search_field
+                hint_text: 'Buscar...'
+                mode: 'rectangle'
+                size_hint_x: 0.6
+
+            MDRaisedButton:
+                text: 'Cambio de Contraseña'
+                size_hint_x: 0.4
+                md_bg_color: app.theme_cls.primary_color
+                text_color: 1,1,1,1
+                on_release: app.change_password()
+
+        MySeparator
+
+        # Fila de botones principales con iconos y colores diferentes
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: dp(10)
+            size_hint_y: None
+            height: dp(50)
+
+            MDFillRoundFlatIconButton:
+                icon: 'calendar'
+                text: 'Visitas de Hoy'
+                md_bg_color: app.theme_cls.accent_color
+                text_color: 1,1,1,1
+                icon_color: 1,1,1,1
+                size_hint_x: None
+                width: dp(120)
+                on_release: app.show_todays_visits()
+
+            MDFillRoundFlatIconButton:
+                icon: 'account-plus'
+                text: 'Registrar Visita'
+                md_bg_color: app.theme_cls.accent_color
+                text_color: 1,1,1,1
+                icon_color: 1,1,1,1
+                size_hint_x: None
+                width: dp(120)
+                on_release: app.root.current = 'ir_cliente'
+
+            MDFillRoundFlatIconButton:
+                icon: 'map-marker'
+                text: 'Visita Presencial'
+                md_bg_color: app.theme_cls.accent_color
+                text_color: 1,1,1,1
+                icon_color: 1,1,1,1
+                size_hint_x: None
+                width: dp(120)
+                on_release: app.root.current = 'presencial'
+
+        MySeparator
+
+        # Botones secundarios: sincronización, gestión, agendar, histórico, minisite, salir
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing: dp(10)
+
+            MDFillRoundFlatIconButton:
+                icon: 'sync'
+                text: 'Sincronizar'
+                md_bg_color: app.theme_cls.primary_color
+                text_color: 1,1,1,1
+                icon_color: 1,1,1,1
+                size_hint_y: None
+                height: dp(50)
+                on_release: app.sync_activities()
+
+            MDFillRoundFlatIconButton:
+                icon: 'briefcase'
+                text: 'Gestión de Actividades'
+                md_bg_color: app.theme_cls.primary_color
+                text_color: 1,1,1,1
+                icon_color: 1,1,1,1
+                size_hint_y: None
+                height: dp(50)
+                on_release: root.manager.current = 'gestion'
+
+            MDFillRoundFlatIconButton:
+                icon: 'calendar-plus'
+                text: 'Agendar'
+                md_bg_color: app.theme_cls.primary_color
+                text_color: 1,1,1,1
+                icon_color: 1,1,1,1
+                size_hint_y: None
+                height: dp(50)
+                on_release: app.root.current = 'agendar'
+
+            MDFillRoundFlatIconButton:
+                icon: 'history'
+                text: 'Histórico de Visitas'
+                md_bg_color: app.theme_cls.primary_color
+                text_color: 1,1,1,1
+                icon_color: 1,1,1,1
+                size_hint_y: None
+                height: dp(50)
+                on_release: app.root.current = 'historico_visitas'
+
+            MDFillRoundFlatIconButton:
+                icon: 'web'
+                text: 'Minisite'
+                md_bg_color: app.theme_cls.primary_color
+                text_color: 1,1,1,1
+                icon_color: 1,1,1,1
+                size_hint_y: None
+                height: dp(50)
+                on_release: app.open_url('https://sigoverplus.com/sigover_rehavid/forma/forma_login.php')
+
+            MDFillRoundFlatIconButton:
+                icon: 'logout'
+                text: 'Salir'
+                md_bg_color: app.theme_cls.primary_color
+                text_color: 1,1,1,1
+                icon_color: 1,1,1,1
+                size_hint_y: None
+                height: dp(50)
+                on_release: app.stop()

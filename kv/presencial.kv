@@ -1,0 +1,47 @@
+<PresencialScreen>:
+    name: 'presencial'
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(10)
+        spacing: dp(10)
+
+        Spinner:
+            id: agenda_spinner
+            text: 'Seleccione una agenda'
+            values: []              # inicializamos vacío
+            size_hint_y: None
+            height: dp(48)
+
+        MDTextField:
+            id: lat_field
+            hint_text: 'Latitud'
+
+        MDTextField:
+            id: lon_field
+            hint_text: 'Longitud'
+
+        MDTextField:
+            id: photo_path
+            hint_text: 'Ruta foto'
+
+        Spinner:
+            id: estado_spinner
+            text: 'Seleccione'
+            values: ['Programado', 'En Curso', 'Finalizado']
+
+        MDTextField:
+            id: comment_field
+            hint_text: 'Comentario'
+
+        MDFillRoundFlatButton:
+            text: 'Capturar GPS'
+            on_release: root.capture_gps()
+
+        MDFillRoundFlatButton:
+            text: 'Tomar Foto'
+            on_release: root.take_photo()
+
+        MDFillRoundFlatButton:
+            text: 'Enviar'
+            on_release: root.submit()

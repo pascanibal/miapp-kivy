@@ -1,0 +1,37 @@
+#:import MDTextField kivymd.uix.textfield.MDTextField
+#:import MDRaisedButton kivymd.uix.button.MDRaisedButton
+
+<LoginScreen>:
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(20)
+        padding: dp(20)
+        
+        # Widget para mostrar el logo
+        Image:
+            source: "logo.png"        # Reemplaza "logo.png" con la ruta de tu imagen
+            size_hint: None, None
+            size: dp(150), dp(150)     # Ajusta el tamaño según tus necesidades
+            pos_hint: {"center_x": 0.5}
+        
+        MDLabel:
+            text: "App Minisite"
+            halign: "center"
+            font_style: "H4"
+        
+        MDTextField:
+            id: username_field
+            hint_text: "Usuario"
+            required: True
+        
+        MDTextField:
+            id: password_field
+            hint_text: "Contraseña"
+            password: True
+            required: True
+        
+        MDRaisedButton:
+            text: "Entrar"
+            pos_hint: {"center_x": 0.5}
+            on_release:
+                root.do_login(username_field.text, password_field.text)

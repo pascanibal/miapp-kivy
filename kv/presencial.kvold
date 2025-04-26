@@ -1,0 +1,60 @@
+<PresencialScreen>:
+    name: 'presencial'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(10)
+        spacing: dp(10)
+
+        MDLabel:
+            text: 'Seleccione Agenda:'
+        Spinner:
+            id: agenda_spinner
+            text: 'Seleccione'
+
+        MDLabel:
+            text: 'Coordenadas GPS:'
+        MDBoxLayout:
+            orientation: 'horizontal'
+            spacing: dp(10)
+            MDTextField:
+                id: lat_field
+                hint_text: 'Latitud'
+                readonly: True
+            MDTextField:
+                id: lon_field
+                hint_text: 'Longitud'
+                readonly: True
+            MDFillRoundFlatButton:
+                text: 'GPS'
+                on_release: root.capture_gps()
+
+        MDLabel:
+            text: 'Foto del lugar:'
+        MDBoxLayout:
+            orientation: 'horizontal'
+            MDTextField:
+                id: photo_path
+                hint_text: 'Ruta foto'
+                readonly: True
+            MDFillRoundFlatButton:
+                text: 'Tomar Foto'
+                on_release: root.take_photo()
+
+        MDLabel:
+            text: 'Estado de la cita:'
+        Spinner:
+            id: estado_spinner
+            text: 'Seleccione'
+            values: ['Agenda confirmada', 'Cita cancelada', 'Cambio de horario', 'Cliente no disponible']
+
+        MDLabel:
+            text: 'Comentario:'
+        MDTextField:
+            id: comment_field
+            hint_text: '¿Qué sucedió?'
+            multiline: True
+        
+        MDFillRoundFlatButton:
+            text: 'Guardar Presencial'
+            pos_hint: {'center_x': .5}
+            on_release: root.submit()

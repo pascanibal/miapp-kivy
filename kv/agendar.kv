@@ -1,0 +1,73 @@
+#:import dp kivy.metrics.dp
+
+<AgendarScreen>:
+    name: "agendar"
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(10)
+        spacing: dp(10)
+
+        # Header con flecha para volver
+        BoxLayout:
+            size_hint_y: None
+            height: dp(56)
+            MDIconButton:
+                icon: "arrow-left"
+                on_release: setattr(app.root, "current", "menu")
+            MDLabel:
+                text: "Agendar Actividad"
+                font_style: "H5"
+                valign: "middle"
+
+        # Formulario
+        Spinner:
+            id: actividad_spinner
+            text: "Selecciona actividad"
+            values: root.actividades_list
+            size_hint_y: None
+            height: dp(48)
+            on_text: root.actividad = self.text
+
+        MDTextField:
+            hint_text: "Fecha"
+            text: root.selected_date
+            readonly: True
+            on_focus: if self.focus: root.open_date_picker()
+
+        MDTextField:
+            hint_text: "Hora Inicio"
+            text: root.start_time
+            readonly: True
+            on_focus: if self.focus: root.open_time_picker("start")
+
+        MDTextField:
+            hint_text: "Hora Fin"
+            text: root.end_time
+            readonly: True
+            on_focus: if self.focus: root.open_time_picker("end")
+
+        MDTextField:
+            id: direccion
+            hint_text: "Dirección"
+
+        MDTextField:
+            id: ciudad
+            hint_text: "Ciudad"
+
+        MDTextField:
+            id: telefono
+            hint_text: "Teléfono"
+
+        # Botones
+        BoxLayout:
+            size_hint_y: None
+            height: dp(48)
+            spacing: dp(10)
+
+            MDRaisedButton:
+                text: "Guardar"
+                on_release: root.guardar()
+
+            MDRaisedButton:
+                text: "Cancelar"
+                on_release: setattr(app.root, "current", "menu")
