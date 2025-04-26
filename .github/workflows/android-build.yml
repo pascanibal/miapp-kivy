@@ -1,0 +1,37 @@
+name: 📦 Build Kivy APK
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build-debug:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ✅ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: 🛠️ Instalar dependencias del sistema
+        run: |
+          sudo apt update
+          sudo apt install -y openjdk-11-jdk unzip zip
+
+      - name: 🐍 Instalar Python y Buildozer
+        run: |
+          python3 -m pip install --upgrade pip setuptools cython
+          python3 -m pip install buildozer
+
+      - name: ⚙️ Inicializar Buildozer
+        run: buildozer init
+
+      - name: 📲 Compilar APK (debug)
+        run: |
+          export BUILDOZER_ALLOW_RUN_AS_ROOT=1
+          buildozer android debug --non-interactive
+
+      - name: 📤 Subir APK como artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: miapp-debug-apk
+          path: bin/*.apk
